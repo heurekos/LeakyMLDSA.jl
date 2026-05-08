@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Remark 68 · LeakyMLDSA.jl</title><meta name="title" content="Remark 68 · LeakyMLDSA.jl"/><meta property="og:title" content="Remark 68 · LeakyMLDSA.jl"/><meta property="twitter:title" content="Remark 68 · LeakyMLDSA.jl"/><meta name="description" content="Documentation for LeakyMLDSA.jl."/><meta property="og:description" content="Documentation for LeakyMLDSA.jl."/><meta property="twitter:description" content="Documentation for LeakyMLDSA.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="LeakyMLDSA.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">LeakyMLDSA.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><span class="tocitem">Package</span><ul><li><a class="tocitem" href="../">Guide</a></li><li><a class="tocitem" href="../demo/">Demo</a></li><li><a class="tocitem" href="../real-world/">Real World</a></li></ul></li><li><span class="tocitem">Remarks</span><ul><li><a class="tocitem" href="../remark67/">Remark 67</a></li><li class="is-active"><a class="tocitem" href>Remark 68</a></li><li><a class="tocitem" href="../remark69/">Remark 69</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="../api/">Public API</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Remarks</a></li><li class="is-active"><a href>Remark 68</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Remark 68</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/blob/main/docs/src/remark68.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Remark-68"><a class="docs-heading-anchor" href="#Remark-68">Remark 68</a><a id="Remark-68-1"></a><a class="docs-heading-anchor-permalink" href="#Remark-68" title="Permalink"></a></h1><p>Computations for <a href="https://eprint.iacr.org/2026/580.pdf#remark.68">Remark 68</a>.</p><pre><code class="language-julia hljs">using LeakyMLDSA
+
+@show Threads.nthreads()
+
+for (MLDSAParameterSet, p_err, lambda, n_inf, threads, timeout) in [
+    (MLDSA44, 0.490, 4,   6_000_000,  1,  30),
+    # (MLDSA44, 0.490, 8, 100_000_000,  1, 240),
+    # (MLDSA65, 0.490, 9, 150_000_000,  1, 240),
+    # (MLDSA87, 0.490, 8, 100_000_000,  1, 240),
+    # (MLDSA44, 0.499, 4, 600_000_000, 64, 240),
+]
+    @info &quot;running attack&quot; p_err lambda n_inf threads
+
+    mldsa = MLDSAParameterSet(; p_err, lambda)
+    sigs = Signatures(mldsa; count = n_inf, seed = 0)
+
+    elapsed = @elapsed result = begin
+        attack = ContinuousNLPAttack(sigs; threads,
+            options = (; iterations = 25, show_trace = true))
+
+        attack = CombinatorialNLPAttack(sigs; threads, timeout,
+            initial_guess = key_guess(run_attack(attack)))
+
+        run_attack(attack)
+    end
+
+    if attack_succeeded(result)
+        @info &quot;succeeded in $(elapsed) s&quot;
+    else
+        @warn &quot;failed in $(elapsed) s&quot; sig_violations(result) key_violations(result)
+    end
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Threads.nthreads() = 4
+<span class="sgr36"><span class="sgr1">┌ Info: </span></span>running attack
+<span class="sgr36"><span class="sgr1">│ </span></span>  p_err = 0.49
+<span class="sgr36"><span class="sgr1">│ </span></span>  lambda = 4
+<span class="sgr36"><span class="sgr1">│ </span></span>  n_inf = 6000000
+<span class="sgr36"><span class="sgr1">└ </span></span>  threads = 1
+Iter     Function value   Gradient norm
+     0     2.615809e+06     3.937564e+02
+ * time: 0.024447202682495117
+     1     2.606826e+06     4.537936e+02
+ * time: 2.990200996398926
+     2     2.594048e+06     3.095910e+02
+ * time: 3.7816591262817383
+     3     2.590693e+06     4.781791e+02
+ * time: 4.576258182525635
+     4     2.582097e+06     3.126708e+02
+ * time: 5.38032603263855
+     5     2.578655e+06     3.930821e+02
+ * time: 6.180215120315552
+     6     2.575021e+06     2.248200e+02
+ * time: 6.973999977111816
+     7     2.573648e+06     2.018827e+02
+ * time: 9.361126184463501
+     8     2.572854e+06     1.485694e+02
+ * time: 10.152831077575684
+     9     2.572389e+06     1.175584e+02
+ * time: 10.943647146224976
+    10     2.572172e+06     7.756045e+01
+ * time: 11.73483419418335
+    11     2.572046e+06     5.865325e+01
+ * time: 12.525750160217285
+    12     2.571974e+06     3.225234e+01
+ * time: 13.316285133361816
+    13     2.571931e+06     3.402178e+01
+ * time: 14.107244968414307
+    14     2.571902e+06     2.947522e+01
+ * time: 14.898177146911621
+    15     2.571876e+06     2.175386e+01
+ * time: 15.6892991065979
+    16     2.571863e+06     1.669231e+01
+ * time: 16.482213020324707
+    17     2.571856e+06     1.203482e+01
+ * time: 17.27410316467285
+    18     2.571851e+06     8.556553e+00
+ * time: 18.065545082092285
+    19     2.571848e+06     5.287315e+00
+ * time: 18.857155084609985
+    20     2.571847e+06     4.643941e+00
+ * time: 19.647974014282227
+    21     2.571846e+06     3.379673e+00
+ * time: 20.442784070968628
+    22     2.571845e+06     2.535606e+00
+ * time: 21.2384991645813
+    23     2.571845e+06     3.367301e+00
+ * time: 22.03251004219055
+    24     2.571844e+06     3.684047e+00
+ * time: 22.82407307624817
+    25     2.571844e+06     3.829249e+00
+ * time: 23.616319179534912
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>succeeded in 55.343476061 s</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../remark67/">« Remark 67</a><a class="docs-footer-nextpage" href="../remark69/">Remark 69 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Friday 8 May 2026 20:15">Friday 8 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

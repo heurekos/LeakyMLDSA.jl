@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Real World · LeakyMLDSA.jl</title><meta name="title" content="Real World · LeakyMLDSA.jl"/><meta property="og:title" content="Real World · LeakyMLDSA.jl"/><meta property="twitter:title" content="Real World · LeakyMLDSA.jl"/><meta name="description" content="Documentation for LeakyMLDSA.jl."/><meta property="og:description" content="Documentation for LeakyMLDSA.jl."/><meta property="twitter:description" content="Documentation for LeakyMLDSA.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="LeakyMLDSA.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">LeakyMLDSA.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><span class="tocitem">Package</span><ul><li><a class="tocitem" href="../">Guide</a></li><li><a class="tocitem" href="../demo/">Demo</a></li><li class="is-active"><a class="tocitem" href>Real World</a></li></ul></li><li><span class="tocitem">Remarks</span><ul><li><a class="tocitem" href="../remark67/">Remark 67</a></li><li><a class="tocitem" href="../remark68/">Remark 68</a></li><li><a class="tocitem" href="../remark69/">Remark 69</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="../api/">Public API</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Package</a></li><li class="is-active"><a href>Real World</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Real World</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/blob/main/docs/src/real-world.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Real-World"><a class="docs-heading-anchor" href="#Real-World">Real World</a><a id="Real-World-1"></a><a class="docs-heading-anchor-permalink" href="#Real-World" title="Permalink"></a></h1><p><em>Evaluation of our attack on real ML-DSA signatures generated by OpenSSL.</em></p><p>This section assumes a Linux system with all prerequisites for building OpenSSL in place.</p><h3 id="Helper-Functions"><a class="docs-heading-anchor" href="#Helper-Functions">Helper Functions</a><a id="Helper-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Helper-Functions" title="Permalink"></a></h3><p>We begin by defining a function <code>load_signature</code> that, for indices <span>$i \in \{1,\dotsc,\ell\}$</span> and <span>$j \in \{1,\dotsc,256\}$</span>, extracts from an ML-DSA signature a simplified signature <span>$(c, z) \in \{-1,0,1\}^{256} \times (-\gamma+\beta,\gamma-\beta)$</span>. For further details, see <a href="https://eprint.iacr.org/2026/580.pdf#subsection.3.2">Section 3.2</a> of <a href="https://eprint.iacr.org/2026/580">IACR ePrint 2026/580</a> and the <a href="https://doi.org/10.6028/NIST.FIPS.204">ML-DSA specification</a>.</p><pre><code class="language-julia hljs">using LeakyMLDSA
+using CryptographicHashFunctions: digest!, shake256
+
+struct RealMLDSA
+    n::Int; log_gamma::Int; ell::Int; eta::Int8; tau::Int; strength::Int; sig_length::Int
+end
+
+const RealMLDSA44 = RealMLDSA(256, 17, 4, 2, 39, 32, 2420)
+const RealMLDSA65 = RealMLDSA(256, 19, 5, 4, 49, 48, 3309)
+const RealMLDSA87 = RealMLDSA(256, 19, 7, 2, 60, 60, 4627)
+
+function load_signature(params::RealMLDSA, bytes::AbstractVector{UInt8}, i::Int, j::Int)
+    (; n, log_gamma, strength) = params
+
+    c = sparsify(negacyclic_shift(sample_in_ball(params, @view(bytes[1:strength])), j))
+    z = unpack_z(params, @view(bytes[(strength + 1):end]), i, j)
+
+    return (c, z)
+end
+
+function sparsify(c::AbstractVector)
+    n = length(c)
+    return LeakyMLDSA.SparseSignVector(
+        [idx for idx in 0:(n - 1) if c[idx + 1] &gt; 0],
+        [idx for idx in 0:(n - 1) if c[idx + 1] &lt; 0],
+    )
+end
+
+function negacyclic_shift(c::Vector, j::Int)
+    n = length(c)
+    return [[c[j - j_ + 1] for j_ in 1:j]; [-c[n + j - j_ + 1] for j_ in (j + 1):n]]
+end
+
+function sample_in_ball(params::RealMLDSA, seed::AbstractVector{UInt8})
+    (; n, tau) = params
+    xof = shake256(seed)
+    bits = BitVector(((b &gt;&gt; i) &amp; 1) == 1 for b in digest!(xof, 8) for i in 0:7)
+    c = zeros(Int, n)
+    for i in (n - tau):(n - 1)
+        local j; while (j = digest!(xof, 1)[]) &gt; i end
+        (c[i + 1], c[j + 1]) = (c[j + 1], bits[i + tau - n + 1] ? -1 : 1)
+    end
+    return c
+end
+
+function unpack_z(params::RealMLDSA, bytes::AbstractVector{UInt8}, i::Int, j::Int)
+    (; n, log_gamma) = params
+    (idx_i, idx_j) = ((i - 1) * cld(n * (log_gamma + 1), 8), (j - 1) * (log_gamma + 1))
+    bytes = @view bytes[(idx_i + (idx_j &gt;&gt; 3) + 1):end]
+    window = Int(bytes[1]) | (Int(bytes[2]) &lt;&lt; 8) | (Int(bytes[3]) &lt;&lt; 16)
+    return (1 &lt;&lt; log_gamma) - ((window &gt;&gt; (idx_j &amp; 7)) &amp; ((1 &lt;&lt; (log_gamma + 1)) - 1))
+end</code></pre><h3 id="Store-Signatures"><a class="docs-heading-anchor" href="#Store-Signatures">Store Signatures</a><a id="Store-Signatures-1"></a><a class="docs-heading-anchor-permalink" href="#Store-Signatures" title="Permalink"></a></h3><p>Next, we define a function that builds a patched version of OpenSSL and generates real signatures:</p><pre><code class="language-julia hljs">function generate_real_signatures(algorithm::AbstractString, count::Int;
+    ossldir = mktempdir(),
+    osslcommit = &quot;openssl-3.6.2&quot;,
+    osslpatch = &quot;&quot;&quot;
+        diff --git a/crypto/ml_dsa/ml_dsa_sign.c b/crypto/ml_dsa/ml_dsa_sign.c
+        index 14fdf2ad16..6aa528c04e 100644
+        --- a/crypto/ml_dsa/ml_dsa_sign.c
+        +++ b/crypto/ml_dsa/ml_dsa_sign.c
+        @@ -22,6 +22,19 @@
+
+         #define ML_DSA_MAX_LAMBDA 256 /* bit strength for ML-DSA-87 */
+
+        +static inline int32_t center_mod_q(int32_t x)
+        +{
+        +    return x &gt; ML_DSA_Q_MINUS1_DIV2 ? x - ML_DSA_Q : x;
+        +}
+        +
+        +static void print_polyvector(const VECTOR *v)
+        +{
+        +    for (size_t i = 0; i &lt; v-&gt;num_poly; i++)
+        +        for (size_t j = 0; j &lt; ML_DSA_NUM_POLY_COEFFICIENTS; j++)
+        +            printf(&quot;%d &quot;, center_mod_q(v-&gt;poly[i].coeff[j]));
+        +    printf(&quot;\\n&quot;);
+        +}
+        +
+         /*
+          * @brief Initialize a Signature object by pointing all of its objects to
+          * preallocated blocks. The values passed for hint, z and
+        @@ -290,6 +303,7 @@ static int ml_dsa_sign_internal(const ML_DSA_KEY *priv,
+                 if (value_barrier_32(constant_time_ge(ct0_max, gamma2)
+                         | constant_time_lt(params-&gt;omega, h_ones)))
+                     continue;
+        +        print_polyvector(&amp;y);
+                 ret = ossl_ml_dsa_sig_encode(&amp;sig, params, out_sig);
+                 break;
+             }
+        &quot;&quot;&quot;
+)
+    params = Dict(
+        &quot;ML-DSA-44&quot; =&gt; RealMLDSA44,
+        &quot;ML-DSA-65&quot; =&gt; RealMLDSA65,
+        &quot;ML-DSA-87&quot; =&gt; RealMLDSA87,
+    )[algorithm]
+
+    (keyfile, msgfile, sigfile, sigsfile, leaksfile) =
+        (joinpath(ossldir, &quot;$algorithm.$ext&quot;) for ext in (&quot;key&quot;, &quot;msg&quot;, &quot;sig&quot;, &quot;sigs&quot;, &quot;leaks&quot;))
+
+    osslcmd = setenv(Cmd([joinpath(ossldir, &quot;apps/openssl&quot;)]), &quot;LD_LIBRARY_PATH&quot; =&gt; ossldir)
+
+    if !isfile(osslcmd.exec)
+        mkpath(ossldir)
+        @info &quot;cloning and building patched OpenSSL&quot;
+        cd(ossldir) do; redirect_stdout(devnull) do; redirect_stderr(devnull) do
+            run(`git clone https://github.com/openssl/openssl.git .`)
+            run(`git checkout $osslcommit`)
+            run(pipeline(`git apply -`; stdin = IOBuffer(osslpatch)))
+            run(`./Configure`)
+            run(`make -j$(Sys.CPU_THREADS)`)
+        end; end; end
+        @assert isfile(osslcmd.exec)
+    end
+
+    @info &quot;generating key&quot;
+    run(`$osslcmd genpkey -algorithm $algorithm -out $keyfile`)
+
+    @info &quot;generating signatures&quot;
+    open(sigsfile, &quot;w&quot;) do sigsio; open(leaksfile, &quot;w&quot;) do leaksio; redirect_stdout(leaksio) do
+        for _ in 1:count
+            write(msgfile, rand(UInt8, 32))
+            run(`$osslcmd pkeyutl -sign -inkey $keyfile -in $msgfile -out $sigfile`)
+            write(sigsio, read(sigfile))
+        end
+    end; end; end
+
+    return (; params, keyfile, sigsfile, leaksfile)
+end</code></pre><p>The returned file <code>sigsfile</code> points to a binary file containing a sequence of ML-DSA signatures, and <code>leaksfile</code> points to a text file in which each line lists the coefficients of the mask vector <span>$\boldsymbol{y}$</span>, witch each coefficient in <span>$[-\gamma,\gamma)$</span> and separated by spaces.</p><h3 id="Load-Signatures"><a class="docs-heading-anchor" href="#Load-Signatures">Load Signatures</a><a id="Load-Signatures-1"></a><a class="docs-heading-anchor-permalink" href="#Load-Signatures" title="Permalink"></a></h3><p>Finally, we define a function that parses <code>sigsfile</code> and <code>leaksfile</code>. To model single-bit leakage, we extract only the bit of <span>$\boldsymbol{y}$</span> specified by the arguments <code>i</code>, <code>j</code>, and <code>lambda</code>.</p><pre><code class="language-julia hljs">function load_leaky_signatures(;
+    params::RealMLDSA, sigsfile::AbstractString, leaksfile::AbstractString,
+    i::Int, j::Int, lambda::Int, filter_informative::Bool = true,
+)
+    (; n, log_gamma, eta, tau, sig_length) = params
+
+    mldsa = MLDSA(; gamma = 1 &lt;&lt; log_gamma, eta, tau, lambda)
+
+    (cs, zs, leaks) = (LeakyMLDSA.SparseSignVector[], Int[], BitVector())
+    open(sigsfile) do sigsio; open(leaksfile) do leaksio
+        n_sig = 1
+        while !eof(sigsio) &amp;&amp; !eof(leaksio)
+            (c, z) = load_signature(params, read(sigsio, sig_length), i, j)
+            if !filter_informative || is_informative(mldsa, z)
+                push!(cs, c)
+                push!(zs, z)
+
+                # Extract the &quot;leaked&quot; bit; adjust the next two lines for other formats,
+                # e.g., when leakfile contains only single leaked bits.
+                y = parse(Int, split(readline(leaksio))[(i - 1) * n + j])
+                push!(leaks, (y &gt;&gt; lambda) &amp; 1)
+
+                n_sig += 1
+            end
+        end
+    end; end
+    sigs = Signatures(mldsa, cs, zs, leaks)
+
+    return sigs
+end</code></pre><h3 id="Key-Recovery"><a class="docs-heading-anchor" href="#Key-Recovery">Key Recovery</a><a id="Key-Recovery-1"></a><a class="docs-heading-anchor-permalink" href="#Key-Recovery" title="Permalink"></a></h3><p>Putting everything together, we now recover the <span>$i$</span>-th component of a real ML-DSA signing key <span>$\boldsymbol{s}_1$</span>:</p><pre><code class="language-julia hljs">(; params, sigsfile, leaksfile) = generate_real_signatures(&quot;ML-DSA-44&quot;, 1500)
+sigs = load_leaky_signatures(; params, sigsfile, leaksfile, i = 2, j = 145, lambda = 4)
+
+@info &quot;running attack&quot;
+result = run_attack(NLPAttack(sigs))
+
+println(&quot;violated signatures: &quot;, sig_violations(result))
+println(&quot;recovered component of s_1: [&quot;, join(key_guess(result), &quot;, &quot;), &quot;]&quot;)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr36"><span class="sgr1">[ Info: </span></span>cloning and building patched OpenSSL
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>generating key
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>generating signatures
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>running attack
+violated signatures: 0
+recovered component of s_1: [2, 2, 0, -2, -2, 2, -1, -1, 1, 2, 2, -1, -1, 2, 2, 0, 1, -2, -1, -2, -1, -2, -1, 1, -1, 2, -2, -1, -2, 2, 2, -2, 1, 0, -1, -2, 2, 0, 1, 1, -1, -1, -2, -1, 0, 2, -2, 0, 2, -1, 1, 0, -1, 1, -2, -2, 0, 2, 0, -2, 0, -2, 0, 1, 1, -1, -2, 1, 0, 1, 2, 2, 2, 0, 2, 2, 0, -1, -2, -2, 1, 2, -1, 2, 2, -2, -2, 0, -1, -2, 1, 1, 1, 0, 2, 1, 1, -1, 0, -2, 1, -2, -1, 1, -1, -1, -2, -1, -2, -1, -1, -2, -1, 2, 1, -1, 0, 0, 1, 0, -1, 2, 1, -2, 0, 2, 2, 0, 1, 2, 0, -2, -1, 1, 0, 1, -2, -2, 0, 1, -1, 0, 2, 2, 2, 0, -1, -1, 0, 1, 1, -2, 2, 1, 1, 2, -1, -1, 1, 1, 1, -2, 1, 1, 0, -2, -1, -1, 0, 2, 1, 1, 1, 2, -2, 1, 2, 0, 1, -1, -1, -2, 1, -2, 0, -2, 1, 0, -2, 0, 0, 1, -1, 0, 0, 2, 1, -1, -1, 0, -2, 1, 0, 2, -2, -2, 0, 2, -2, -1, 0, 0, 1, 2, -1, -1, 1, 2, 1, -1, -2, -2, -1, -2, -2, 1, 1, 2, -2, 2, 2, -2, 1, 0, -2, -2, -2, 2, -1, 0, 2, -1, 1, -1, -1, 1, 0, -1, 1, -1, -2, 0, -1, 2, 1, 2]</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../demo/">« Demo</a><a class="docs-footer-nextpage" href="../remark67/">Remark 67 »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.17.0 on <span class="colophon-date" title="Friday 8 May 2026 20:15">Friday 8 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
