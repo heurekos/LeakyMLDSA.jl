@@ -1,0 +1,4 @@
+[deps]
+CryptographicHashFunctions = "59f36028-7e5a-47c1-b5da-23e00bab95ae"
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+LeakyMLDSA = "e8f5fa40-518c-4139-b4d5-eb6fcd9c7404"
