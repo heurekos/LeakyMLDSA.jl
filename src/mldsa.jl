@@ -126,9 +126,9 @@ struct Signatures{T}
         cs = Vector{SparseSignVector}(undef, count)
         zs = Vector{T}(undef, count)
 
-        tasks = map(Iterators.partition(1:count, 10_000)) do chunk
+        tasks = map(enumerate(Iterators.partition(1:count, 10_000))) do (chunk_id, chunk)
             Threads.@spawn _generate_leaky_signatures!(cs, zs, chunk, mldsa, key;
-                filter_informative, rng = Xoshiro("$(id)|sigs=$(chunk)"))
+                filter_informative, rng = Xoshiro("$(id):$(chunk_id)"))
         end
 
         fetch.(tasks)
@@ -185,8 +185,8 @@ function generate_leaky_signature(mldsa::MLDSA, key::AbstractVector;
 
     while true
         # Sample z and c independently, then derive y.
-        # Per https://eprint.iacr.org/2026/580.pdf#lemma.16, this yields the
-        # same distribution of (key, c, z, y) as in the problem definition.
+        # Per https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#lemma.35,
+        # this yields the same distribution of (key, c, z, y) as in the problem definition.
 
         z = rand(rng, z_range)
         filter_informative && !is_informative(mldsa, z) && continue

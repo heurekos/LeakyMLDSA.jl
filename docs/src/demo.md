@@ -16,36 +16,7 @@ using InteractiveUtils; versioninfo()
 
 ### Helper Functions
 
-Based on the upper bound $n_\mathsf{inf,upper}$ (see [Figure 1](https://eprint.iacr.org/2026/580.pdf#figure.1) and [Section 4.4](https://eprint.iacr.org/2026/580.pdf#subsection.4.4) of [IACR ePrint 2026/580](https://eprint.iacr.org/2026/580)), we define a  function that computes the number of informative signatures with leakage that typically more than suffices for key recovery:
-
-```@example demo
-const N_INF_UPPER = Dict(
-    (256, 2, 39) => Dict(4 => 1230, 5 => 2555, 6 => 5209, 7 => 10518, 8 => 12841),
-    (256, 4, 49) => Dict(5 => 2357, 6 => 4820, 7 => 9748, 8 => 19604, 9 => 30076),
-    (256, 2, 60) => Dict(4 =>  955, 5 => 2008, 6 => 4119, 7 =>  8343, 8 => 15734),
-)
-
-# Adjust the upper-bound heuristic for ML-DSA-87 with λ = 4,
-# where it does not match the experimental results.
-N_INF_UPPER[(256, 2, 60)][4] = 2500
-
-function n_inf_hint(mldsa::MLDSA)
-    (; n, eta, tau, lambda, p_err) = mldsa
-
-    n_inf_upper = get(N_INF_UPPER, (n, eta, tau), nothing)
-    isnothing(n_inf_upper) && return
-
-    (lambda_min, lambda_max) = extrema(keys(n_inf_upper))
-    lambda < lambda_min && return
-
-    scale_err = inv(1 - 2 * sqrt((1 - p_err) * p_err))
-    return ceil(Int, scale_err * n_inf_upper[min(lambda, lambda_max)])
-end
-
-nothing # hide
-```
-
-Let's also define a convenience function that, for a given key guess, prints the number of violated signatures and the number of recovered key entries:
+Let's define a convenience function that, for a given key guess, prints the number of violated signatures and the number of recovered key entries:
 
 ```@example demo
 function evaluate_key_guess(sigs::Signatures, key_guess::AbstractVector{<: Integer})
@@ -69,7 +40,9 @@ mldsa = MLDSA44(; p_err = 0.0, lambda = 4)
 
 ### Signature Generation
 
-We then generate as many informative signatures with leakage as specified by `n_inf_hint`. A seed is provided for reproducibility.
+We then generate as many informative signatures with leakage as specified by [`n_inf_hint`](@ref), an exported function that estimates a number typically more than sufficient for key recovery.
+The estimate is based on the upper bound $n_\mathsf{inf,upper}$ (see [Figure 1](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#figure.1) and [Section 4.3](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#subsection.4.3)).
+ A seed is provided for reproducibility.
 
 ```@example demo
 sigs = Signatures(mldsa; count = n_inf_hint(mldsa), seed = 0)
@@ -85,7 +58,7 @@ evaluate_key_guess(sigs, sigs.key)
 
 ### NLP Attack
 
-`NLPAttack` is the most convenient method for key recovery. In the first stage, it runs the continuous method (optionally, repeatedly with varying hyperparameters). In the final stage, it performs the combinatorial search starting from the best key guess identified earlier. In particular, when $p_\mathsf{err} > 0$, it is advisable to set a `timeout`.
+[`NLPAttack`](@ref) is the most convenient method for key recovery. In the first stage, it runs the continuous method (optionally, repeatedly with varying hyperparameters). In the final stage, it performs the combinatorial search starting from the best key guess identified earlier. In particular, when $p_\mathsf{err} > 0$, it is advisable to set a `timeout`.
 
 ```@example demo
 nlp_attack = NLPAttack(sigs; timeout = 5)
@@ -133,7 +106,7 @@ evaluate_key_guess(sigs, key_guess(combinatorial_result))
 
 ### Further Customization
 
-For finer control, we can manually combine the continuous and combinatorial attacks instead of using `NLPAttack`. For example, we can start the combinatorial search from a single guess produced by the continuous method as follows:
+For finer control, we can manually combine the continuous and combinatorial attacks instead of using [`NLPAttack`](@ref). For example, we can start the combinatorial search from a single guess produced by the continuous method as follows:
 
 ```@example demo
 combinatorial_attack = CombinatorialNLPAttack(sigs;
@@ -145,7 +118,7 @@ combinatorial_result = run_attack(combinatorial_attack)
 evaluate_key_guess(sigs, key_guess(combinatorial_result))
 ```
 
-Rather than relying on the predefined `HyperParameters`, we may also specify `hyperparameters` manually in `NLPAttack`. For example, we can run the continuous method multiple times from different initial key guesses as follows:
+Rather than relying on the predefined [`Hyperparameters`](@ref), we may also specify `hyperparameters` manually in [`NLPAttack`](@ref). For example, we can run the continuous method multiple times from different initial key guesses as follows:
 
 ```@example demo
 import Random; rng = Random.Xoshiro(4711)

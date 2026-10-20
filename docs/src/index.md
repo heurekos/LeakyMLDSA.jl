@@ -1,6 +1,10 @@
 # Guide
 
-This Julia package provides the NLP attack described in [Section 6](https://eprint.iacr.org/2026/580.pdf#section.6) of the [IACR ePrint 2026/580](https://eprint.iacr.org/2026/580).
+This Julia package provides the NLP attack described in [Section 6](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#section.6) of the paper
+
+> Kaveh Bashiri, Jan Geuenich, and Johannes Mittmann.
+> [Exploiting noisy single-bit leakage in ML-DSA](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf).
+> [*IACR Transactions on Cryptographic Hardware and Embedded Systems*, 2027(1)](), xxx–xxx.
 
 ## Installation
 
@@ -8,7 +12,10 @@ Once Julia is [installed](https://julialang.org/install/), the package can be ad
 
 ```julia
 julia> using Pkg
-julia> Pkg.develop(; url = "https://github.com/heurekos/LeakyMLDSA.jl.git")
+julia> Pkg.develop(;
+    url = "https://github.com/heurekos/LeakyMLDSA.jl.git",
+    rev = "ches-submission",
+)
 ```
 
 This installs the package in development mode, cloning from the GitHub repository.

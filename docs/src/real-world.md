@@ -6,7 +6,7 @@ This section assumes a Linux system with all prerequisites for building OpenSSL 
 
 ### Helper Functions
 
-We begin by defining a function `load_signature` that, for indices $i \in \{1,\dotsc,\ell\}$ and $j \in \{1,\dotsc,256\}$, extracts from an ML-DSA signature a simplified signature $(c, z) \in \{-1,0,1\}^{256} \times (-\gamma+\beta,\gamma-\beta)$. For further details, see [Section 3.2](https://eprint.iacr.org/2026/580.pdf#subsection.3.2) of [IACR ePrint 2026/580](https://eprint.iacr.org/2026/580) and the [ML-DSA specification](https://doi.org/10.6028/NIST.FIPS.204).
+We begin by defining a function `load_signature` that, for indices $i \in \{1,\dotsc,\ell\}$ and $j \in \{1,\dotsc,256\}$, extracts from an ML-DSA signature a simplified signature $(c, z) \in \{-1,0,1\}^{256} \times (-\gamma+\beta,\gamma-\beta)$. For further details, see [Section 3.2](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#subsection.3.2) and the [ML-DSA specification](https://doi.org/10.6028/NIST.FIPS.204).
 
 ```@example real_world
 using LeakyMLDSA
@@ -65,7 +65,7 @@ end
 nothing # hide
 ```
 
-### Store Signatures
+### Storing Signatures
 
 Next, we define a function that builds a patched version of OpenSSL and generates real signatures:
 
@@ -152,14 +152,14 @@ nothing # hide
 
 The returned file `sigsfile` points to a binary file containing a sequence of ML-DSA signatures, and `leaksfile` points to a text file in which each line lists the coefficients of the mask vector $\boldsymbol{y}$, witch each coefficient in $[-\gamma,\gamma)$ and separated by spaces.
 
-### Load Signatures
+### Loading Signatures
 
-Finally, we define a function that parses `sigsfile` and `leaksfile`. To model single-bit leakage, we extract only the bit of $\boldsymbol{y}$ specified by the arguments `i`, `j`, and `lambda`.
+Finally, we define a function that parses `sigsfile` and `leaksfile`. To model single-bit leakage, we extract only the bits of $\boldsymbol{y}$ specified by the arguments `i`, `js`, and `lambda`.
 
 ```@example real_world
 function load_leaky_signatures(;
     params::RealMLDSA, sigsfile::AbstractString, leaksfile::AbstractString,
-    i::Int, j::Int, lambda::Int, filter_informative::Bool = true,
+    i::Int, js::AbstractVector{Int}, lambda::Int, filter_informative::Bool = true,
 )
     (; n, log_gamma, eta, tau, sig_length) = params
 
@@ -167,19 +167,20 @@ function load_leaky_signatures(;
 
     (cs, zs, leaks) = (LeakyMLDSA.SparseSignVector[], Int[], BitVector())
     open(sigsfile) do sigsio; open(leaksfile) do leaksio
-        n_sig = 1
         while !eof(sigsio) && !eof(leaksio)
-            (c, z) = load_signature(params, read(sigsio, sig_length), i, j)
-            if !filter_informative || is_informative(mldsa, z)
-                push!(cs, c)
-                push!(zs, z)
+            sigbytes = read(sigsio, sig_length)
+            leakdata = split(readline(leaksio))
+            for j in js
+                (c, z) = load_signature(params, sigbytes, i, j)
+                if !filter_informative || is_informative(mldsa, z)
+                    push!(cs, c)
+                    push!(zs, z)
 
-                # Extract the "leaked" bit; adjust the next two lines for other formats,
-                # e.g., when leakfile contains only single leaked bits.
-                y = parse(Int, split(readline(leaksio))[(i - 1) * n + j])
-                push!(leaks, (y >> lambda) & 1)
-
-                n_sig += 1
+                    # Extract the "leaked" bit; adjust the next two lines for other formats,
+                    # e.g., when leakfile contains only single leaked bits.
+                    y = parse(Int, leakdata[(i - 1) * n + j])
+                    push!(leaks, (y >> lambda) & 1)
+                end
             end
         end
     end; end
@@ -193,11 +194,11 @@ nothing # hide
 
 ### Key Recovery
 
-Putting everything together, we now recover the $i$-th component of a real ML-DSA signing key $\boldsymbol{s}_1$:
+Putting everything together, we can now recover the $i$-th component of a real ML-DSA signing key $\boldsymbol{s}_1$. Assuming one bit of leakage per coefficient, four signatures suffice to recover each component, and hence the entire key:
 
 ```@example real_world
-(; params, sigsfile, leaksfile) = generate_real_signatures("ML-DSA-44", 1500)
-sigs = load_leaky_signatures(; params, sigsfile, leaksfile, i = 2, j = 145, lambda = 4)
+(; params, sigsfile, leaksfile) = generate_real_signatures("ML-DSA-44", 4)
+sigs = load_leaky_signatures(; params, sigsfile, leaksfile, i = 2, js = 1:256, lambda = 4)
 
 @info "running attack"
 result = run_attack(NLPAttack(sigs))

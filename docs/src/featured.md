@@ -1,8 +1,11 @@
-# Remark 67
+# Featured
 
-Computations for [Remark 67](https://eprint.iacr.org/2026/580.pdf#remark.67).
+See [Remark 30](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#remark.30) and [Remark 31](https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#remark.31).
 
-```@example remark67
+In the following examples, key recovery is typically possible with the provided number of signatures `n_inf`.
+However, `n_inf` is neither optimized to be minimal nor guaranteed to suffice for every `seed`.
+
+```@example
 using LeakyMLDSA
 
 for (p_err, lambda, n_inf) in [

@@ -20,6 +20,7 @@ Signatures
 generate_key
 generate_leaky_signature
 is_informative
+n_inf_hint
 ```
 
 ## Attacks
