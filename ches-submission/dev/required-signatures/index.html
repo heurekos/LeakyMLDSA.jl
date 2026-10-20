@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Required Signatures · LeakyMLDSA.jl</title><meta name="title" content="Required Signatures · LeakyMLDSA.jl"/><meta property="og:title" content="Required Signatures · LeakyMLDSA.jl"/><meta property="twitter:title" content="Required Signatures · LeakyMLDSA.jl"/><meta name="description" content="Documentation for LeakyMLDSA.jl."/><meta property="og:description" content="Documentation for LeakyMLDSA.jl."/><meta property="twitter:description" content="Documentation for LeakyMLDSA.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="LeakyMLDSA.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">LeakyMLDSA.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><span class="tocitem">Package</span><ul><li><a class="tocitem" href="../">Guide</a></li><li><a class="tocitem" href="../demo/">Demo</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><a class="tocitem" href="../featured/">Featured</a></li><li><a class="tocitem" href="../real-world/">Real World</a></li><li><a class="tocitem" href="../high-noise/">High Noise</a></li><li><a class="tocitem" href="../lowest-bit-indices/">Lowest Bit Indices</a></li><li><a class="tocitem" href="../bp-comparison/">Belief Propagation</a></li><li class="is-active"><a class="tocitem" href>Required Signatures</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="../api/">Public API</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Required Signatures</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Required Signatures</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/tree/ches-submission" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/blob/ches-submission/docs/src/required-signatures.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Required-Signatures"><a class="docs-heading-anchor" href="#Required-Signatures">Required Signatures</a><a id="Required-Signatures-1"></a><a class="docs-heading-anchor-permalink" href="#Required-Signatures" title="Permalink"></a></h1><p><em>Determination of the number of informative signatures required for key recovery using the NLP attack.</em></p><p>The data files <code>data/{exact,noisy}/{MLDSA44,MLDSA65,MLDSA87}.json</code> were generated using a beta version of this package. Since generating these files was computationally expensive, we did not regenerate them using the current version. We include these files merely to document the values shown in <a href="https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#figure.10">Figure 10</a> and <a href="https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#figure.11">Figure 11</a>, which the code below computes from these files.</p><h3 id="Helper-Functions"><a class="docs-heading-anchor" href="#Helper-Functions">Helper Functions</a><a id="Helper-Functions-1"></a><a class="docs-heading-anchor-permalink" href="#Helper-Functions" title="Permalink"></a></h3><pre><code class="language-julia hljs">using DataFrames
+using JSON
+using PrettyTables
+
+function print_statistics(identifier; dir = joinpath(@__DIR__, &quot;../../data&quot;))
+    df = DataFrame(; lambda = Int[], p_err = Float64[], nsigs = Int[])
+
+    for experiment in JSON.parsefile(joinpath(dir, &quot;$(identifier).json&quot;))
+        p = experiment[&quot;parameters&quot;]
+        push!(df, (p[&quot;lambda&quot;], p[&quot;p_err&quot;],
+            minimum(r[&quot;nsigs&quot;] for r in experiment[&quot;history&quot;] if r[&quot;success&quot;])))
+    end
+
+    df = combine(groupby(df, [:lambda, :p_err]),
+        :nsigs =&gt; (v -&gt; sum(v) / length(v)),
+        :nsigs =&gt; minimum,
+        :nsigs =&gt; maximum)
+
+    println()
+    pretty_table(sort!(df, [:lambda, :p_err]);
+        title = identifier,
+        column_labels = [&quot;λ&quot;, &quot;p_err&quot;, &quot;Average&quot;, &quot;Minimum&quot;, &quot;Maximum&quot;],
+        formatters = [fmt__printf(&quot;%.2f&quot;, [2]), fmt__printf(&quot;%.0f&quot;, [3])],
+        minimum_data_column_widths = [0, 0, 10, 10, 10],
+        display_size = (-1, -1))
+end</code></pre><h3 id="Exact-Leakage"><a class="docs-heading-anchor" href="#Exact-Leakage">Exact Leakage</a><a id="Exact-Leakage-1"></a><a class="docs-heading-anchor-permalink" href="#Exact-Leakage" title="Permalink"></a></h3><p>Across 100 experiments per row, we obtain for the number of signatures required for key recovery:</p><pre><code class="language-julia hljs">for parameter_set in [&quot;MLDSA44&quot;, &quot;MLDSA65&quot;, &quot;MLDSA87&quot;]
+    print_statistics(&quot;exact/$(parameter_set)&quot;)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
+<span class="sgr1">                   exact/MLDSA44</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 3 │  0.00 │     278788 │      42933 │    1270539 │
+│ 4 │  0.00 │        969 │        828 │       1108 │
+│ 5 │  0.00 │       1961 │       1672 │       2574 │
+│ 6 │  0.00 │       3868 │       3155 │       4783 │
+│ 7 │  0.00 │       7749 │       6404 │       9365 │
+│ 8 │  0.00 │       9317 │       7536 │      10876 │
+└───┴───────┴────────────┴────────────┴────────────┘
+
+<span class="sgr1">                   exact/MLDSA65</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 4 │  0.00 │     615146 │     101285 │    2985210 │
+│ 5 │  0.00 │       1831 │       1574 │       2166 │
+│ 6 │  0.00 │       3690 │       3138 │       4451 │
+│ 7 │  0.00 │       7386 │       6121 │       8717 │
+│ 8 │  0.00 │      14622 │      12190 │      18080 │
+│ 9 │  0.00 │      22745 │      18511 │      27378 │
+└───┴───────┴────────────┴────────────┴────────────┘
+
+<span class="sgr1">                   exact/MLDSA87</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 3 │  0.00 │  180507228 │   10497437 │ 2551065430 │
+│ 4 │  0.00 │       1199 │        789 │       1967 │
+│ 5 │  0.00 │       1573 │       1319 │       1845 │
+│ 6 │  0.00 │       3204 │       2678 │       3781 │
+│ 7 │  0.00 │       6229 │       4793 │       7593 │
+│ 8 │  0.00 │      11865 │      10270 │      14026 │
+└───┴───────┴────────────┴────────────┴────────────┘</code></pre><h3 id="Noisy-Leakage"><a class="docs-heading-anchor" href="#Noisy-Leakage">Noisy Leakage</a><a id="Noisy-Leakage-1"></a><a class="docs-heading-anchor-permalink" href="#Noisy-Leakage" title="Permalink"></a></h3><p>Across 10 experiments per row, we obtain for the number of signatures required for key recovery:</p><pre><code class="language-julia hljs">for parameter_set in [&quot;MLDSA44&quot;, &quot;MLDSA65&quot;, &quot;MLDSA87&quot;]
+    print_statistics(&quot;noisy/$(parameter_set)&quot;)
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">
+<span class="sgr1">                   noisy/MLDSA44</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 4 │  0.00 │        958 │        848 │       1083 │
+│ 4 │  0.05 │       1466 │       1174 │       1645 │
+│ 4 │  0.10 │       2064 │       1808 │       2352 │
+│ 4 │  0.15 │       2772 │       2403 │       3057 │
+│ 4 │  0.20 │       3958 │       3573 │       4299 │
+│ 4 │  0.25 │       5887 │       4789 │       6809 │
+│ 4 │  0.30 │      10043 │       9222 │      11226 │
+│ 4 │  0.35 │      18046 │      16693 │      19720 │
+│ 4 │  0.40 │      39278 │      35049 │      45240 │
+│ 4 │  0.45 │     153398 │     135690 │     170959 │
+│ 5 │  0.00 │       1853 │       1720 │       2076 │
+│ 5 │  0.05 │       2984 │       2605 │       3613 │
+│ 5 │  0.10 │       4175 │       3551 │       5017 │
+│ 5 │  0.15 │       5487 │       4739 │       6237 │
+│ 5 │  0.20 │       7572 │       7042 │       8450 │
+│ 5 │  0.25 │      11776 │      10049 │      13660 │
+│ 5 │  0.30 │      19747 │      15497 │      23256 │
+│ 5 │  0.35 │      36695 │      31559 │      43168 │
+│ 5 │  0.40 │      85205 │      72588 │      92559 │
+│ 5 │  0.45 │     306317 │     257317 │     323484 │
+│ 6 │  0.00 │       3738 │       3210 │       4281 │
+│ 6 │  0.05 │       5927 │       4687 │       6859 │
+│ 6 │  0.10 │       8346 │       7251 │       9893 │
+│ 6 │  0.15 │      11784 │       9715 │      15231 │
+│ 6 │  0.20 │      16173 │      14770 │      17668 │
+│ 6 │  0.25 │      24115 │      21665 │      26916 │
+│ 6 │  0.30 │      39292 │      33094 │      44802 │
+│ 6 │  0.35 │      68893 │      64121 │      72750 │
+│ 6 │  0.40 │     158305 │     137860 │     174408 │
+│ 6 │  0.45 │     678449 │     583454 │     716994 │
+│ 7 │  0.00 │       7524 │       6400 │       8454 │
+│ 7 │  0.05 │      11172 │      10085 │      13344 │
+│ 7 │  0.10 │      16293 │      14427 │      18087 │
+│ 7 │  0.15 │      22962 │      19431 │      31279 │
+│ 7 │  0.20 │      32758 │      28609 │      37192 │
+│ 7 │  0.25 │      48239 │      40883 │      53148 │
+│ 7 │  0.30 │      74780 │      62368 │      82104 │
+│ 7 │  0.35 │     142840 │     117399 │     161375 │
+│ 7 │  0.40 │     328220 │     295663 │     389098 │
+│ 7 │  0.45 │    1276505 │    1089038 │    1503906 │
+│ 8 │  0.00 │       9721 │       8087 │      11052 │
+│ 8 │  0.05 │      13843 │      13200 │      14147 │
+│ 8 │  0.10 │      20317 │      18145 │      21912 │
+│ 8 │  0.15 │      26411 │      22885 │      29518 │
+│ 8 │  0.20 │      40098 │      33641 │      47346 │
+│ 8 │  0.25 │      56717 │      48919 │      66041 │
+│ 8 │  0.30 │      93466 │      81094 │     116374 │
+│ 8 │  0.35 │     168552 │     150398 │     182743 │
+│ 8 │  0.40 │     397367 │     342729 │     462906 │
+│ 8 │  0.45 │    1627585 │    1312181 │    2112519 │
+└───┴───────┴────────────┴────────────┴────────────┘
+
+<span class="sgr1">                   noisy/MLDSA65</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 5 │  0.00 │       1854 │       1676 │       2092 │
+│ 5 │  0.05 │       2702 │       2460 │       3086 │
+│ 5 │  0.10 │       4021 │       3686 │       4476 │
+│ 5 │  0.15 │       5344 │       4547 │       6378 │
+│ 5 │  0.20 │       7883 │       7288 │       8456 │
+│ 5 │  0.25 │      11433 │      10400 │      12235 │
+│ 5 │  0.30 │      18780 │      17291 │      20249 │
+│ 5 │  0.35 │      33827 │      27811 │      42589 │
+│ 5 │  0.40 │      76215 │      66822 │      89104 │
+│ 5 │  0.45 │     312128 │     274057 │     356041 │
+│ 6 │  0.00 │       3720 │       3316 │       4026 │
+│ 6 │  0.05 │       5768 │       5031 │       6234 │
+│ 6 │  0.10 │       7647 │       6451 │       8540 │
+│ 6 │  0.15 │      11246 │      10336 │      12488 │
+│ 6 │  0.20 │      15303 │      14021 │      16145 │
+│ 6 │  0.25 │      23190 │      19451 │      25247 │
+│ 6 │  0.30 │      37842 │      35482 │      42312 │
+│ 6 │  0.35 │      65790 │      57156 │      79221 │
+│ 6 │  0.40 │     162642 │     154095 │     180944 │
+│ 6 │  0.45 │     616487 │     521703 │     684105 │
+│ 7 │  0.00 │       7067 │       6162 │       7796 │
+│ 7 │  0.05 │      11103 │      10006 │      12134 │
+│ 7 │  0.10 │      15350 │      14098 │      16966 │
+│ 7 │  0.15 │      19855 │      18265 │      20686 │
+│ 7 │  0.20 │      31505 │      27604 │      37447 │
+│ 7 │  0.25 │      44915 │      37557 │      51207 │
+│ 7 │  0.30 │      74559 │      67578 │      82417 │
+│ 7 │  0.35 │     135024 │     110387 │     158794 │
+│ 7 │  0.40 │     309991 │     261065 │     358367 │
+│ 7 │  0.45 │    1297877 │    1133718 │    1455178 │
+│ 8 │  0.00 │      14840 │      12939 │      16418 │
+│ 8 │  0.05 │      23231 │      18552 │      27639 │
+│ 8 │  0.10 │      30505 │      27673 │      32426 │
+│ 8 │  0.15 │      44391 │      39340 │      50007 │
+│ 8 │  0.20 │      61038 │      54882 │      67886 │
+│ 8 │  0.25 │      92670 │      83884 │     109069 │
+│ 8 │  0.30 │     137686 │     118639 │     157523 │
+│ 8 │  0.35 │     272968 │     222082 │     311130 │
+│ 8 │  0.40 │     620402 │     481805 │     708399 │
+│ 8 │  0.45 │    2529905 │    2170899 │    2804078 │
+│ 9 │  0.00 │      22004 │      20150 │      23781 │
+│ 9 │  0.05 │      34157 │      31961 │      37395 │
+│ 9 │  0.10 │      48915 │      41173 │      54587 │
+│ 9 │  0.15 │      65912 │      53117 │      71194 │
+│ 9 │  0.20 │      90943 │      77044 │     104214 │
+│ 9 │  0.25 │     139915 │     125535 │     166122 │
+│ 9 │  0.30 │     229840 │     195966 │     265290 │
+│ 9 │  0.35 │     430444 │     346085 │     489365 │
+│ 9 │  0.40 │     919369 │     764964 │    1080758 │
+│ 9 │  0.45 │    3733541 │    3561631 │    4014365 │
+└───┴───────┴────────────┴────────────┴────────────┘
+
+<span class="sgr1">                   noisy/MLDSA87</span>
+┌───┬───────┬────────────┬────────────┬────────────┐
+│<span class="sgr1"> λ </span>│<span class="sgr1"> p_err </span>│<span class="sgr1">    Average </span>│<span class="sgr1">    Minimum </span>│<span class="sgr1">    Maximum </span>│
+├───┼───────┼────────────┼────────────┼────────────┤
+│ 4 │  0.00 │       1236 │        960 │       1815 │
+│ 4 │  0.05 │       1485 │       1156 │       2034 │
+│ 4 │  0.10 │       1935 │       1478 │       3120 │
+│ 4 │  0.15 │       2483 │       2275 │       2701 │
+│ 4 │  0.20 │       3396 │       3033 │       4224 │
+│ 4 │  0.25 │       5089 │       4115 │       7154 │
+│ 4 │  0.30 │       8062 │       7521 │       9488 │
+│ 4 │  0.35 │      14264 │      12131 │      17189 │
+│ 4 │  0.40 │      36642 │      32679 │      44183 │
+│ 4 │  0.45 │     131643 │     111723 │     149706 │
+│ 5 │  0.00 │       1601 │       1365 │       1934 │
+│ 5 │  0.05 │       2485 │       2270 │       2663 │
+│ 5 │  0.10 │       3132 │       2617 │       3445 │
+│ 5 │  0.15 │       4426 │       3804 │       4888 │
+│ 5 │  0.20 │       6757 │       6035 │       7645 │
+│ 5 │  0.25 │       9645 │       8707 │      10558 │
+│ 5 │  0.30 │      15939 │      11447 │      19314 │
+│ 5 │  0.35 │      29028 │      24956 │      33620 │
+│ 5 │  0.40 │      65383 │      59105 │      75877 │
+│ 5 │  0.45 │     270787 │     226100 │     327361 │
+│ 6 │  0.00 │       3323 │       2682 │       3955 │
+│ 6 │  0.05 │       4755 │       4305 │       5169 │
+│ 6 │  0.10 │       6726 │       5878 │       7771 │
+│ 6 │  0.15 │       9024 │       7683 │      10101 │
+│ 6 │  0.20 │      13470 │      12213 │      15528 │
+│ 6 │  0.25 │      19425 │      17892 │      20663 │
+│ 6 │  0.30 │      30766 │      29098 │      34482 │
+│ 6 │  0.35 │      56918 │      49966 │      68643 │
+│ 6 │  0.40 │     134067 │     117418 │     156888 │
+│ 6 │  0.45 │     554072 │     489561 │     626231 │
+│ 7 │  0.00 │       6195 │       5520 │       6608 │
+│ 7 │  0.05 │       9408 │       8088 │      10733 │
+│ 7 │  0.10 │      12918 │      10390 │      14440 │
+│ 7 │  0.15 │      18768 │      16966 │      20503 │
+│ 7 │  0.20 │      25992 │      22789 │      32866 │
+│ 7 │  0.25 │      40031 │      34870 │      44766 │
+│ 7 │  0.30 │      61768 │      55424 │      67085 │
+│ 7 │  0.35 │     117044 │     106047 │     132891 │
+│ 7 │  0.40 │     266827 │     238619 │     293298 │
+│ 7 │  0.45 │    1045524 │     897217 │    1164380 │
+│ 8 │  0.00 │      11827 │      10704 │      13511 │
+│ 8 │  0.05 │      17484 │      15543 │      19498 │
+│ 8 │  0.10 │      25159 │      23486 │      27598 │
+│ 8 │  0.15 │      35220 │      32308 │      39167 │
+│ 8 │  0.20 │      50832 │      40873 │      58359 │
+│ 8 │  0.25 │      76735 │      66176 │      96591 │
+│ 8 │  0.30 │     118356 │     110327 │     133701 │
+│ 8 │  0.35 │     215592 │     186818 │     243423 │
+│ 8 │  0.40 │     506021 │     468716 │     586910 │
+│ 8 │  0.45 │    2059477 │    1873169 │    2303324 │
+└───┴───────┴────────────┴────────────┴────────────┘</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../bp-comparison/">« Belief Propagation</a><a class="docs-footer-nextpage" href="../api/">Public API »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Friday 23 October 2026 16:04">Friday 23 October 2026</span>. Using Julia version 1.13.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Lowest Bit Indices · LeakyMLDSA.jl</title><meta name="title" content="Lowest Bit Indices · LeakyMLDSA.jl"/><meta property="og:title" content="Lowest Bit Indices · LeakyMLDSA.jl"/><meta property="twitter:title" content="Lowest Bit Indices · LeakyMLDSA.jl"/><meta name="description" content="Documentation for LeakyMLDSA.jl."/><meta property="og:description" content="Documentation for LeakyMLDSA.jl."/><meta property="twitter:description" content="Documentation for LeakyMLDSA.jl."/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.63.2/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.svg" alt="LeakyMLDSA.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">LeakyMLDSA.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><span class="tocitem">Package</span><ul><li><a class="tocitem" href="../">Guide</a></li><li><a class="tocitem" href="../demo/">Demo</a></li></ul></li><li><span class="tocitem">Examples</span><ul><li><a class="tocitem" href="../featured/">Featured</a></li><li><a class="tocitem" href="../real-world/">Real World</a></li><li><a class="tocitem" href="../high-noise/">High Noise</a></li><li class="is-active"><a class="tocitem" href>Lowest Bit Indices</a></li><li><a class="tocitem" href="../bp-comparison/">Belief Propagation</a></li><li><a class="tocitem" href="../required-signatures/">Required Signatures</a></li></ul></li><li><span class="tocitem">API Reference</span><ul><li><a class="tocitem" href="../api/">Public API</a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Examples</a></li><li class="is-active"><a href>Lowest Bit Indices</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Lowest Bit Indices</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/tree/ches-submission" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/heurekos/LeakyMLDSA.jl/blob/ches-submission/docs/src/lowest-bit-indices.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Lowest-Bit-Indices"><a class="docs-heading-anchor" href="#Lowest-Bit-Indices">Lowest Bit Indices</a><a id="Lowest-Bit-Indices-1"></a><a class="docs-heading-anchor-permalink" href="#Lowest-Bit-Indices" title="Permalink"></a></h1><p>See <a href="https://heurekos.github.io/LeakyMLDSA.jl/tches2027_1-paper208.pdf#remark.30">Remark 30</a>.</p><p>Note that we don&#39;t set <code>initial_guess</code> in <a href="../api/#LeakyMLDSA.ContinuousNLPAttack"><code>ContinuousNLPAttack</code></a> and <a href="../api/#LeakyMLDSA.CombinatorialNLPAttack"><code>CombinatorialNLPAttack</code></a>, so the search always starts from the zero key.</p><pre><code class="language-julia hljs">using LeakyMLDSA
+
+for (MLDSAParameterSet, lambda, n_inf) in [
+    (MLDSA44, 3, 1_000_000),
+    (MLDSA65, 4, 2_000_000),
+]
+    @info &quot;running attack&quot; lambda n_inf
+
+    mldsa = MLDSAParameterSet(; lambda)
+    sigs = Signatures(mldsa; count = n_inf, seed = 0)
+
+    elapsed = @elapsed result = begin
+        attack = ContinuousNLPAttack(sigs;
+            options = (; iterations = 25, show_trace = true))
+
+        run_attack(attack)
+    end
+
+    if attack_succeeded(result)
+        @info &quot;succeeded in $(elapsed) s&quot;
+    else
+        @warn &quot;failed in $(elapsed) s&quot; sig_violations(result) key_violations(result)
+    end
+end</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr36"><span class="sgr1">┌ Info: </span></span>running attack
+<span class="sgr36"><span class="sgr1">│ </span></span>  lambda = 3
+<span class="sgr36"><span class="sgr1">└ </span></span>  n_inf = 1000000
+Iter     Function value   Gradient norm
+     0     3.785503e+05     1.942127e+02
+ * time: 3.0994415283203125e-5
+     1     3.777756e+05     2.383386e+02
+ * time: 0.21401500701904297
+     2     3.742490e+05     1.329181e+02
+ * time: 0.2551259994506836
+     3     3.734080e+05     2.059924e+02
+ * time: 0.29651784896850586
+     4     3.716482e+05     1.434936e+02
+ * time: 0.3385038375854492
+     5     3.643123e+05     8.592979e+02
+ * time: 0.5953249931335449
+     6     3.573490e+05     1.315108e+03
+ * time: 0.6392979621887207
+     7     3.371799e+05     2.113091e+03
+ * time: 0.7698009014129639
+     8     2.471435e+05     5.111106e+03
+ * time: 0.8131818771362305
+     9     2.243425e+05     5.563001e+03
+ * time: 1.1954350471496582
+    10     1.893015e+05     5.007048e+03
+ * time: 1.3541488647460938
+    11     1.223533e+05     4.458844e+03
+ * time: 1.4893219470977783
+    12     6.736917e+04     3.032746e+03
+ * time: 1.5298988819122314
+    13     6.192821e+04     2.842324e+03
+ * time: 1.6956498622894287
+    14     4.887049e+04     1.217068e+03
+ * time: 1.7790558338165283
+    15     4.676487e+04     8.967436e+02
+ * time: 1.8210480213165283
+    16     4.579454e+04     3.806914e+02
+ * time: 1.8633298873901367
+    17     4.560889e+04     1.295046e+02
+ * time: 1.9471650123596191
+    18     4.559085e+04     3.203606e+01
+ * time: 1.9899489879608154
+    19     4.558986e+04     2.661637e+01
+ * time: 2.0325260162353516
+    20     4.558912e+04     4.370146e+00
+ * time: 2.0732309818267822
+    21     4.558910e+04     1.405634e-01
+ * time: 2.1151509284973145
+    22     4.558910e+04     7.444809e-03
+ * time: 2.156519889831543
+    23     4.558910e+04     4.292542e-04
+ * time: 2.1981780529022217
+    24     4.558910e+04     1.061988e-05
+ * time: 2.2393109798431396
+    25     4.558910e+04     2.253448e-07
+ * time: 2.28079891204834
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>succeeded in 2.340997211 s
+<span class="sgr36"><span class="sgr1">┌ Info: </span></span>running attack
+<span class="sgr36"><span class="sgr1">│ </span></span>  lambda = 4
+<span class="sgr36"><span class="sgr1">└ </span></span>  n_inf = 2000000
+Iter     Function value   Gradient norm
+     0     8.728026e+05     2.454159e+02
+ * time: 3.409385681152344e-5
+     1     8.706987e+05     2.439774e+02
+ * time: 0.6389851570129395
+     2     8.636639e+05     2.829754e+02
+ * time: 0.7299151420593262
+     3     8.472084e+05     9.480806e+02
+ * time: 0.8170361518859863
+     4     8.438240e+05     1.183630e+03
+ * time: 1.1730761528015137
+     5     7.900820e+05     2.801979e+03
+ * time: 1.4424362182617188
+     6     7.262217e+05     4.513533e+03
+ * time: 1.7117161750793457
+     7     6.381509e+05     5.895085e+03
+ * time: 2.1738719940185547
+     8     3.309256e+05     1.071337e+04
+ * time: 2.2630510330200195
+     9     2.639008e+05     1.045730e+04
+ * time: 2.6255691051483154
+    10     2.103994e+05     6.604192e+03
+ * time: 2.989978075027466
+    11     1.186914e+05     7.231662e+03
+ * time: 3.0807301998138428
+    12     5.885637e+04     3.149091e+03
+ * time: 3.1669411659240723
+    13     4.811441e+04     1.685480e+03
+ * time: 3.3440589904785156
+    14     4.586941e+04     4.326889e+02
+ * time: 3.5263760089874268
+    15     4.562137e+04     1.439402e+02
+ * time: 3.7056241035461426
+    16     4.560656e+04     3.897597e+01
+ * time: 3.7920830249786377
+    17     4.560589e+04     3.276048e+01
+ * time: 3.8817391395568848
+    18     4.560466e+04     6.866309e+00
+ * time: 3.9709792137145996
+    19     4.560461e+04     1.083069e+00
+ * time: 4.062391996383667
+    20     4.560461e+04     3.700624e-02
+ * time: 4.150987148284912
+    21     4.560461e+04     8.935692e-04
+ * time: 4.243790149688721
+    22     4.560461e+04     1.939931e-05
+ * time: 4.332630157470703
+    23     4.560461e+04     1.049734e-06
+ * time: 4.423420190811157
+    24     4.560461e+04     1.912087e-08
+ * time: 4.513638019561768
+    25     4.560461e+04     3.681975e-10
+ * time: 4.601109027862549
+<span class="sgr36"><span class="sgr1">[ Info: </span></span>succeeded in 4.689437593 s</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../high-noise/">« High Noise</a><a class="docs-footer-nextpage" href="../bp-comparison/">Belief Propagation »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.19.0 on <span class="colophon-date" title="Friday 23 October 2026 16:04">Friday 23 October 2026</span>. Using Julia version 1.13.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
